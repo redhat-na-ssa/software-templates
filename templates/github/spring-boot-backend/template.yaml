@@ -252,7 +252,7 @@ spec:
         appName: ${{ parameters.artifactId }}-bootstrap
         argoInstance: openshift-gitops
         namespace: openshift-gitops
-        repoUrl: https://github.com/${{ parameters.OrgName }}/${{ parameters.repoName }}-gitops.git
+        repoUrl: https://github.com/${{ parameters.orgName }}/${{ parameters.repoName }}-gitops.git
         path: 'argocd/'
 
   output:
