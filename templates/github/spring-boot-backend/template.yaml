@@ -250,7 +250,7 @@ spec:
       action: argocd:create-resources
       input:
         appName: ${{ parameters.component_id }}-bootstrap
-        argoInstance: main
+        argoInstance: openshift-gitops
         namespace: openshift-gitops
         repoUrl: https://github.com/${{ parameters.OrgName }}/${{ parameters.repoName }}-gitops.git
         path: 'argocd/'
