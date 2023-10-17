@@ -219,18 +219,18 @@ spec:
         url: ./manifests
         copyWithoutTemplating: []
         values:
-          component_id: ${{ parameters.component_id }}
+          artifactId: ${{ parameters.artifactId }}
           description: ${{ parameters.description }}
           destination: https://github.com/${{ parameters.OrgName }}/${{ parameters.repoName }}-gitops
           source_repository: https://github.com/${{ parameters.OrgName }}/${{ parameters.repoName }}
           repository_name: ${{ parameters.repoName }}
           git_owner: ${{ parameters.owner }}
           cluster: .apps.cluster-6kknq.6kknq.sandbox63.opentlc.com
-          namespace: ${{ parameters.component_id }}-dev
+          namespace: ${{ parameters.artifactId }}-dev
           image_registry: ${{ parameters.image_registry }}
           image_host: ${{ parameters.image_host }}
           image_organization: ${{ parameters.image_organization }}
-          image_name: ${{ parameters.component_id }}
+          image_name: ${{ parameters.artifactId }}
           port: 8080
           deployment_name: springboot-template
         targetPath: ./tenant-gitops
@@ -240,8 +240,8 @@ spec:
       action: publish:github
       input:
         repoUrl: github.com?owner=${{ parameters.orgName }}&repo=${{ parameters.repoName }}-gitops.git
-        title: gitops resources for ${{ parameters.component_id }}
-        description: gitops resources for ${{ parameters.component_id }}
+        title: gitops resources for ${{ parameters.artifactId }}
+        description: gitops resources for ${{ parameters.artifactId }}
         sourcePath: ./tenant-gitops
         repoVisibility: public
 
@@ -249,7 +249,7 @@ spec:
       name: Create ArgoCD Resources
       action: argocd:create-resources
       input:
-        appName: ${{ parameters.component_id }}-bootstrap
+        appName: ${{ parameters.artifactId }}-bootstrap
         argoInstance: openshift-gitops
         namespace: openshift-gitops
         repoUrl: https://github.com/${{ parameters.OrgName }}/${{ parameters.repoName }}-gitops.git
