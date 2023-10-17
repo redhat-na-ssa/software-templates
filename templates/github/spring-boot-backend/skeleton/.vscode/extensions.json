@@ -1,0 +1,11 @@
+{
+    "recommendations": [
+      "vscjava.vscode-java-pack",
+      // "redhat.java",
+      // "redhat.fabric8-analytics",
+      "redhat.vscode-xml",
+      "redhat.vscode-yaml",
+      // "vscjava.vscode-java-test",
+      "cnshenj.vscode-task-manager"
+    ]
+}

@@ -1,0 +1,43 @@
+schemaVersion: 2.2.0
+metadata:
+  name: springboot-app
+components:
+  - name: tools
+    container:
+      image: quay.io/devfile/universal-developer-image
+      endpoints:
+        - exposure: public
+          name: home
+          protocol: http
+          targetPort: 8080
+          path: /
+      volumeMounts:
+        - name: m2
+          path: /home/user/.m2
+      memoryLimit: 4Gi
+      memoryRequest: 2Gi
+      cpuRequest: 1000m
+      cpuLimit: 3000m
+      mountSources: true
+  - name: m2
+    volume:
+      size: 1G
+commands:
+  - id: sb-package-jvm
+    exec:
+      label: '07: SpringBoot - JVM Package'
+      commandLine: './mvnw clean package -DskipTests'
+      component: tools
+      group:
+        isDefault: true
+        kind: build
+      workingDir: '${PROJECT_SOURCE}/'
+  - id: sb-start-dev
+    exec:
+      label: '08: SpringBoot - Start in dev mode'
+      commandLine: './mvnw compile spring-boot:run -Dspring.profiles.active=development'
+      component: tools
+      group:
+        isDefault: true
+        kind: run
+      workingDir: '${PROJECT_SOURCE}/'

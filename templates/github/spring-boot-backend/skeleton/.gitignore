@@ -30,4 +30,5 @@ build/
 !**/src/test/**/build/
 
 ### VS Code ###
-.vscode/
+#needed for DevSpaces to install plugins at workspace creation
+!.vscode/
