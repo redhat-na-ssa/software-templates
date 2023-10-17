@@ -221,11 +221,11 @@ spec:
         values:
           component_id: ${{ parameters.component_id }}
           description: ${{ parameters.description }}
-          destination: https://github.com/${{ (parameters.repoUrl | parseRepoUrl).owner }}/${{ (parameters.repoUrl | parseRepoUrl).repo }}-gitops
-          source_repository: https://github.com/${{ (parameters.repoUrl | parseRepoUrl).owner }}/${{ (parameters.repoUrl | parseRepoUrl).repo }}
-          repository_name: ${{ (parameters.repoUrl | parseRepoUrl).repo }}
-          git_owner: ${{ (parameters.repoUrl | parseRepoUrl).owner }}
-          cluster: .apps.cluster-hsrrf.hsrrf.sandbox48.opentlc.com
+          destination: https://github.com/${{ parameters.OrgName }}/${{ parameters.repoName }}-gitops
+          source_repository: https://github.com/${{ parameters.OrgName }}/${{ parameters.repoName }}
+          repository_name: ${{ parameters.repoName }}
+          git_owner: ${{ parameters.owner }}
+          cluster: .apps.cluster-6kknq.6kknq.sandbox63.opentlc.com
           namespace: ${{ parameters.component_id }}-dev
           image_registry: ${{ parameters.image_registry }}
           image_host: ${{ parameters.image_host }}
@@ -239,7 +239,7 @@ spec:
       name: Publishing to Resource Repository
       action: publish:github
       input:
-        repoUrl: github.com?repo=${{ (parameters.repoUrl | parseRepoUrl).repo }}-gitops&owner=${{ (parameters.repoUrl | parseRepoUrl).owner }}
+        repoUrl: github.com?owner=${{ parameters.orgName }}&repo=${{ parameters.repoName }}
         title: gitops resources for ${{ parameters.component_id }}
         description: gitops resources for ${{ parameters.component_id }}
         sourcePath: ./tenant-gitops
@@ -252,7 +252,7 @@ spec:
         appName: ${{ parameters.component_id }}-bootstrap
         argoInstance: main
         namespace: openshift-gitops
-        repoUrl: https://github.com/${{ (parameters.repoUrl | parseRepoUrl).owner }}/${{ (parameters.repoUrl | parseRepoUrl).repo }}-gitops.git
+        repoUrl: https://github.com/${{ parameters.OrgName }}/${{ parameters.repoName }}-gitops.git
         path: 'argocd/'
 
   output:
