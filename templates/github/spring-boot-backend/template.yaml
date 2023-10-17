@@ -145,7 +145,7 @@ spec:
           groupId: ${{ parameters.groupId }}
           artifactId: ${{ parameters.artifactId }}
           javaPackageName: ${{ parameters.javaPackageName }}
-          sourceControl: github.com
+          sourceControl: github.com # If using a Hosted Enterprise GithHub replace with your internal domain
 
     - id: ciTemplate
       name: Generating the CI Component
@@ -170,7 +170,7 @@ spec:
           groupId: ${{ parameters.groupId }}
           artifactId: ${{ parameters.artifactId }}
           javaPackageName: ${{ parameters.javaPackageName }}
-          sourceControl: github.com
+          sourceControl: github.com # If using a Hosted Enterprise GithHub replace with your internal domain
 
     - id: catalogTemplate
       name: Generating the Catalog Info Component
@@ -193,14 +193,15 @@ spec:
           groupId: ${{ parameters.groupId }}
           artifactId: ${{ parameters.artifactId }}
           javaPackageName: ${{ parameters.javaPackageName }}
-          sourceControl: github.com
+          sourceControl: github.com # If using a Hosted Enterprise GithHub replace with your internal domain
 
     - id: publish
       name: Publishing to the Source Code Repository
       action: publish:github
       input:
-        allowedHosts: ['github.com']
+        allowedHosts: ['github.com'] # If using a Hosted Enterprise GithHub replace with your internal domain
         description: ${{ parameters.description }}
+        # If using a Hosted Enterprise GithHub replace with your internal domain
         repoUrl: github.com?owner=${{ parameters.orgName }}&repo=${{ parameters.repoName }}
         defaultBranch: main
 
@@ -210,6 +211,49 @@ spec:
       input:
         repoContentsUrl: ${{ steps.publish.output.repoContentsUrl }}
         catalogInfoPath: /catalog-info.yaml
+
+    - id: template-gitops-deployment
+      name: Generating Deployment Resources
+      action: fetch:template
+      input:
+        url: ./manifests
+        copyWithoutTemplating: []
+        values:
+          component_id: ${{ parameters.component_id }}
+          description: ${{ parameters.description }}
+          destination: https://github.com/${{ (parameters.repoUrl | parseRepoUrl).owner }}/${{ (parameters.repoUrl | parseRepoUrl).repo }}-gitops
+          source_repository: https://github.com/${{ (parameters.repoUrl | parseRepoUrl).owner }}/${{ (parameters.repoUrl | parseRepoUrl).repo }}
+          repository_name: ${{ (parameters.repoUrl | parseRepoUrl).repo }}
+          git_owner: ${{ (parameters.repoUrl | parseRepoUrl).owner }}
+          cluster: .apps.cluster-hsrrf.hsrrf.sandbox48.opentlc.com
+          namespace: ${{ parameters.component_id }}-dev
+          image_registry: ${{ parameters.image_registry }}
+          image_host: ${{ parameters.image_host }}
+          image_organization: ${{ parameters.image_organization }}
+          image_name: ${{ parameters.component_id }}
+          port: 8080
+          deployment_name: springboot-template
+        targetPath: ./tenant-gitops
+
+    - id: publish-gitops
+      name: Publishing to Resource Repository
+      action: publish:github
+      input:
+        repoUrl: github.com?repo=${{ (parameters.repoUrl | parseRepoUrl).repo }}-gitops&owner=${{ (parameters.repoUrl | parseRepoUrl).owner }}
+        title: gitops resources for ${{ parameters.component_id }}
+        description: gitops resources for ${{ parameters.component_id }}
+        sourcePath: ./tenant-gitops
+        repoVisibility: public
+
+    - id: create-argocd-resources
+      name: Create ArgoCD Resources
+      action: argocd:create-resources
+      input:
+        appName: ${{ parameters.component_id }}-bootstrap
+        argoInstance: main
+        namespace: openshift-gitops
+        repoUrl: https://github.com/${{ (parameters.repoUrl | parseRepoUrl).owner }}/${{ (parameters.repoUrl | parseRepoUrl).repo }}-gitops.git
+        path: 'argocd/'
 
   output:
     links:

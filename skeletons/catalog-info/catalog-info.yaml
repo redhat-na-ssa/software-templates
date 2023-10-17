@@ -24,6 +24,7 @@ metadata:
     {%- endif %}
     {%- if values.ci == "../../../skeletons/tekton/" %}
     tektonci/build-namespace: ${{ values.namespace }}
+    janus-idp.io/tekton: ${{ name }}
     {%- endif %}
     backstage.io/kubernetes-id: ${{ name }}
     backstage.io/techdocs-ref: dir:.
