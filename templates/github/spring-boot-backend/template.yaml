@@ -239,7 +239,7 @@ spec:
       name: Publishing to Resource Repository
       action: publish:github
       input:
-        repoUrl: github.com?owner=${{ parameters.orgName }}&repo=${{ parameters.repoName }}
+        repoUrl: github.com?owner=${{ parameters.orgName }}&repo=${{ parameters.repoName }}-gitops.git
         title: gitops resources for ${{ parameters.component_id }}
         description: gitops resources for ${{ parameters.component_id }}
         sourcePath: ./tenant-gitops
