@@ -26,6 +26,7 @@ metadata:
     tektonci/build-namespace: ${{ values.namespace }}
     janus-idp.io/tekton: ${{ name }}
     {%- endif %}
+    argocd/app-name: ${{ values.artifactId }}-bootstrap
     backstage.io/kubernetes-id: ${{ name }}
     backstage.io/techdocs-ref: dir:.
     {%- if values.sourceControl == "gitlab.com" %}
