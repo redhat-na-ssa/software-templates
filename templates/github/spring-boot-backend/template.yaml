@@ -219,7 +219,7 @@ spec:
         url: ./manifests
         copyWithoutTemplating: []
         values:
-          artifactId: ${{ parameters.artifactId }}
+          component_id: ${{ parameters.artifactId }}
           description: ${{ parameters.description }}
           destination: https://github.com/${{ parameters.OrgName }}/${{ parameters.repoName }}-gitops
           source_repository: https://github.com/${{ parameters.OrgName }}/${{ parameters.repoName }}
