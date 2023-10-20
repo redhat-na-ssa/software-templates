@@ -2,7 +2,7 @@ apiVersion: scaffolder.backstage.io/v1beta3
 kind: Template
 metadata:
   name: spring-boot-backend-template
-  title: Create a Spring Boot Backend application with a CI pipeline
+  title: Create a Spring Boot Backend application with CI (Tekton) and CD (ArgoCD) manifests
   description: Create a starter Spring Boot backend application with a CI pipeline
   tags:
     - recommended
