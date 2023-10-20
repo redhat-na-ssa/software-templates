@@ -76,6 +76,7 @@ spec:
           type: string
           default: io/janus/spring-boot-app
           description: Name for the Java Package (ensure to use the / character as this is used for folder structure) should match Group ID and Artifact ID
+
     - title: Provide information about the CI method
       required:
         - ci
@@ -99,30 +100,61 @@ spec:
                 ci:
                   const: ../../../skeletons/github-actions/
             - required:
-                - imageRepository
+                # - imageRepository
+                - image_registry
+                - image_host
+                - image_organization
+                - cluster_domain_url
                 - namespace
-                - imageUrl
+                # - imageUrl
               properties:
+                cluster_domain_url:
+                  title: Cluster Domain Url
+                  type: string
+                  description: The Cluster Domain URL where the aplication will be deployed to (usually starts with '.apps')
+                  default: '.apps.cluster-6kknq.6kknq.sandbox63.opentlc.com'
+                namespace:
+                  title: Project Namespace
+                  type: string
+                  description: The Project Namespace for deploying resources to the cluster
                 ci:
                   const: ../../../skeletons/tekton/
-                imageRepository:
-                  title: Select a registry
+                image_registry:
+                  title: Image Registry
                   type: string
-                  default: quay.io
                   enum:
-                    - quay.io
-                    - image-registry.openshift-image-registry.svc:5000
-                  enumNames:
+                    - Openshift
                     - Quay
-                    - Internal OpenShift Registry
-                imageUrl:
-                  title: Image URL
-                  type: string
-                  description: The Quay.io or OpenShift Image URL <REGISTRY>/<IMAGE_URL>/<REPO_NAME>
-                namespace:
-                  title: Namespace
-                  type: string
-                  description: The namespace for deploying resources
+                # imageUrl:
+                #   title: Image URL
+                #   type: string
+                #   description: The Quay.io or OpenShift Image URL <REGISTRY>/<IMAGE_URL>/<REPO_NAME>
+              dependencies:
+                image_registry:
+                  oneOf:
+                    - properties:
+                        image_registry:
+                          enum:
+                            - Openshift
+                        image_host:
+                          title: Image Host
+                          type: string
+                          description: Host for storing image
+                          default: image-registry.openshift-image-registry.svc:5000
+                    - properties:
+                        image_registry:
+                          enum:
+                            - Quay
+                        image_host:
+                          title: Image Host
+                          type: string
+                          description: Host for storing image
+                          default: quay.io
+                        image_organization:
+                          title: Organization
+                          type: string
+                          description: Name of the Quay Organization
+
   steps:
     - id: sourceCodeTemplate
       name: Generating the Source Code Component
@@ -132,41 +164,16 @@ spec:
         values:
           orgName: ${{ parameters.orgName }}
           repoName: ${{ parameters.repoName }}
-          owner: ${{ parameters.owner }}
-          system: ${{ parameters.system }}
-          applicationType: api
+          # owner: ${{ parameters.owner }}
+          # system: ${{ parameters.system }}
+          # applicationType: service
           description: ${{ parameters.description }}
-          namespace: ${{ parameters.namespace }}
-          imageUrl: ${{ parameters.imageUrl }}
-          imageBuilder: s2i-java
-          imageRepository: ${{ parameters.imageRepository }}
+          # namespace: ${{ parameters.namespace }}
+          # imageUrl: ${{ parameters.image_host }}/${{ parameters.image_organization }}/${{ parameters.artifactId }}
+          # imageBuilder: s2i-java
+          # imageRepository: ${{ parameters.image_host }}/${{ parameters.image_organization }}/${{ parameters.artifactId }}
           port: ${{ parameters.port }}
-          ci: ${{ parameters.ci }}
-          groupId: ${{ parameters.groupId }}
-          artifactId: ${{ parameters.artifactId }}
-          javaPackageName: ${{ parameters.javaPackageName }}
-          sourceControl: github.com # If using a Hosted Enterprise GithHub replace with your internal domain
-
-    - id: ciTemplate
-      name: Generating the CI Component
-      action: fetch:template
-      input:
-        url: ${{ parameters.ci }}
-        copyWithoutTemplating:
-          - .github/workflows/
-        values:
-          orgName: ${{ parameters.orgName }}
-          repoName: ${{ parameters.repoName }}
-          owner: ${{ parameters.owner }}
-          system: ${{ parameters.system }}
-          applicationType: api
-          description: ${{ parameters.description }}
-          namespace: ${{ parameters.namespace }}
-          imageUrl: ${{ parameters.imageUrl }}
-          imageBuilder: s2i-java
-          imageRepository: ${{ parameters.imageRepository }}
-          port: ${{ parameters.port }}
-          ci: ${{ parameters.ci }}
+          # ci: ${{ parameters.ci }}
           groupId: ${{ parameters.groupId }}
           artifactId: ${{ parameters.artifactId }}
           javaPackageName: ${{ parameters.javaPackageName }}
@@ -185,14 +192,14 @@ spec:
           applicationType: service
           description: ${{ parameters.description }}
           namespace: ${{ parameters.namespace }}
-          imageUrl: ${{ parameters.imageUrl }}
-          imageBuilder: s2i-java
-          imageRepository: ${{ parameters.imageRepository }}
-          port: ${{ parameters.port }}
+          # imageUrl: ${{ parameters.image_host }}/${{ parameters.image_organization }}/${{ parameters.artifactId }}
+          # imageBuilder: s2i-java
+          # imageRepository: ${{ parameters.image_host }}/${{ parameters.image_organization }}/${{ parameters.artifactId }}
+          # port: ${{ parameters.port }}
           ci: ${{ parameters.ci }}
-          groupId: ${{ parameters.groupId }}
+          # groupId: ${{ parameters.groupId }}
           artifactId: ${{ parameters.artifactId }}
-          javaPackageName: ${{ parameters.javaPackageName }}
+          # javaPackageName: ${{ parameters.javaPackageName }}
           sourceControl: github.com # If using a Hosted Enterprise GithHub replace with your internal domain
 
     - id: publish
@@ -220,13 +227,14 @@ spec:
         copyWithoutTemplating: []
         values:
           component_id: ${{ parameters.artifactId }}
-          description: ${{ parameters.description }}
-          destination: https://github.com/${{ parameters.OrgName }}/${{ parameters.repoName }}-gitops
-          source_repository: https://github.com/${{ parameters.OrgName }}/${{ parameters.repoName }}
+          # description: ${{ parameters.description }}
+          destination: https://github.com/${{ parameters.orgName }}/${{ parameters.repoName }}-gitops
+          source_repository: https://github.com/${{ parameters.orgName }}/${{ parameters.repoName }}
           repository_name: ${{ parameters.repoName }}
           git_owner: ${{ parameters.owner }}
-          cluster: .apps.cluster-6kknq.6kknq.sandbox63.opentlc.com
-          namespace: ${{ parameters.artifactId }}-dev
+          # cluster: .apps.cluster-6kknq.6kknq.sandbox63.opentlc.com
+          cluster: ${{ parameters.cluster_domain_url }}
+          namespace: ${{ parameters.namespace }}-dev
           image_registry: ${{ parameters.image_registry }}
           image_host: ${{ parameters.image_host }}
           image_organization: ${{ parameters.image_organization }}
