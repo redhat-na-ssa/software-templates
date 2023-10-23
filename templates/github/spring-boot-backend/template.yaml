@@ -24,17 +24,17 @@ spec:
         - port
       properties:
         orgName:
-          title: Organization Name
+          title: Git Organization Name
           type: string
         repoName:
-          title: Repository Name
+          title: Git Repository Name
           type: string
         description:
           title: Description
           type: string
           description: Help others understand what this component is for
         owner:
-          title: Owner
+          title: Git Owner
           type: string
           ui:field: EntityPicker
           ui:options:
@@ -43,7 +43,7 @@ spec:
                 - Group
                 - User
         system:
-          title: System
+          title: Backstage System Entity
           type: string
           ui:field: EntityPicker
           ui:options:
@@ -151,7 +151,7 @@ spec:
                           description: Host for storing image
                           default: quay.io
                         image_organization:
-                          title: Organization
+                          title: Registry Organization
                           type: string
                           description: Name of the Quay Organization
 
