@@ -17,12 +17,19 @@ spec:
   parameters:
     - title: Provide information about the new component
       required:
+        - componentId
         - orgName
         - repoName
         - owner
         - system
         - port
       properties:
+        componentId:
+          title: Name
+          type: string
+          description: Unique name for this app component
+          default: my-springboot-app
+          ui:field: EntityNamePicker
         orgName:
           title: Git Organization Name
           type: string
@@ -74,7 +81,7 @@ spec:
         javaPackageName:
           title: Java Package Namespace
           type: string
-          default: io/janus/spring-boot-app
+          default: com/redhat/demos
           description: Name for the Java Package (ensure to use the / character as this is used for folder structure) should match Group ID and Artifact ID
 
     - title: Provide information about the CI method
@@ -100,13 +107,11 @@ spec:
                 ci:
                   const: ../../../skeletons/github-actions/
             - required:
-                # - imageRepository
                 - image_registry
                 - image_host
                 - image_organization
                 - cluster_domain_url
                 - namespace
-                # - imageUrl
               properties:
                 cluster_domain_url:
                   title: Cluster Domain Url
@@ -125,10 +130,6 @@ spec:
                   enum:
                     - Openshift
                     - Quay
-                # imageUrl:
-                #   title: Image URL
-                #   type: string
-                #   description: The Quay.io or OpenShift Image URL <REGISTRY>/<IMAGE_URL>/<REPO_NAME>
               dependencies:
                 image_registry:
                   oneOf:
@@ -164,16 +165,8 @@ spec:
         values:
           orgName: ${{ parameters.orgName }}
           repoName: ${{ parameters.repoName }}
-          # owner: ${{ parameters.owner }}
-          # system: ${{ parameters.system }}
-          # applicationType: service
           description: ${{ parameters.description }}
-          # namespace: ${{ parameters.namespace }}
-          # imageUrl: ${{ parameters.image_host }}/${{ parameters.image_organization }}/${{ parameters.artifactId }}
-          # imageBuilder: s2i-java
-          # imageRepository: ${{ parameters.image_host }}/${{ parameters.image_organization }}/${{ parameters.artifactId }}
           port: ${{ parameters.port }}
-          # ci: ${{ parameters.ci }}
           groupId: ${{ parameters.groupId }}
           artifactId: ${{ parameters.artifactId }}
           javaPackageName: ${{ parameters.javaPackageName }}
@@ -185,6 +178,7 @@ spec:
       input:
         url: ../../../skeletons/catalog-info/
         values:
+          name: ${{ parameters.componentId }}
           orgName: ${{ parameters.orgName }}
           repoName: ${{ parameters.repoName }}
           owner: ${{ parameters.owner }}
@@ -192,14 +186,8 @@ spec:
           applicationType: service
           description: ${{ parameters.description }}
           namespace: ${{ parameters.namespace }}
-          # imageUrl: ${{ parameters.image_host }}/${{ parameters.image_organization }}/${{ parameters.artifactId }}
-          # imageBuilder: s2i-java
-          # imageRepository: ${{ parameters.image_host }}/${{ parameters.image_organization }}/${{ parameters.artifactId }}
-          # port: ${{ parameters.port }}
           ci: ${{ parameters.ci }}
-          # groupId: ${{ parameters.groupId }}
           artifactId: ${{ parameters.artifactId }}
-          # javaPackageName: ${{ parameters.javaPackageName }}
           sourceControl: github.com # If using a Hosted Enterprise GithHub replace with your internal domain
 
     - id: publish
@@ -226,20 +214,19 @@ spec:
         url: ./manifests
         copyWithoutTemplating: []
         values:
-          component_id: ${{ parameters.artifactId }}
+          component_id: ${{ parameters.componentId }}
           # description: ${{ parameters.description }}
           destination: https://github.com/${{ parameters.orgName }}/${{ parameters.repoName }}-gitops
           source_repository: https://github.com/${{ parameters.orgName }}/${{ parameters.repoName }}
           repository_name: ${{ parameters.repoName }}
-          git_owner: ${{ parameters.owner }}
-          # cluster: .apps.cluster-6kknq.6kknq.sandbox63.opentlc.com
+          git_owner: ${{ parameters.orgName }}
           cluster: ${{ parameters.cluster_domain_url }}
           namespace: ${{ parameters.namespace }}-dev
           image_registry: ${{ parameters.image_registry }}
           image_host: ${{ parameters.image_host }}
           image_organization: ${{ parameters.image_organization }}
           image_name: ${{ parameters.artifactId }}
-          port: 8080
+          port: ${{ parameters.port }}
           deployment_name: springboot-template
         targetPath: ./tenant-gitops
 

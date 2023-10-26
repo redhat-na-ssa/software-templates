@@ -27,13 +27,31 @@ spec:
           value: $(params.source-repo)
         - name: revision
           value: $(params.source-branch)
+        - name: verbose
+          value: 'true'
       taskRef:
         kind: ClusterTask
         name: git-clone
       workspaces:
         - name: output
           workspace: source-folder
-    - name: package
+    - name: package-and-test
+      params:
+        - name: MAVEN_IMAGE
+          value: >-
+            image-registry.openshift-image-registry.svc:5000/openshift/java:latest
+        - name: GOALS
+          value:
+            - clean
+            - package
+            # - '-DskipTests'
+            - '-e'
+            # - '-B'
+            # - '-Dmaven.repo.local=$(workspaces.source.path)/.m2'
+        # - name: CONTEXT_DIR
+        #   value: $(params.clone-subdir)/$(params.app-name)
+        # - name: MAVEN_MIRROR_URL
+        #   value: $(params.maven-mirror-url)
       runAfter:
         - git-clone
       taskRef:
@@ -44,21 +62,51 @@ spec:
           workspace: source-folder
         - name: maven-settings
           workspace: maven-settings
-    - name: build-and-push
+    - name: image-build-push
       params:
         - name: IMAGE
-          value: $(params.output-image)
+          value: >-
+            $(params.output-image):$(tasks.git-clone.results.commit)
+        # - name: BUILDER_IMAGE
+        #   value: >-
+        #     registry.redhat.io/rhel8/buildah@sha256:ac0b8714cc260c94435cab46fe41b3de0ccbc3d93e38c395fa9d52ac49e521fe
+        - name: STORAGE_DRIVER
+          value: vfs
+        - name: DOCKERFILE
+          value: ./src/main/docker/Dockerfile.jvm
+        # - name: CONTEXT
+        #   value: $(params.clone-subdir)
+        - name: TLSVERIFY
+          value: 'false'
+        - name: FORMAT
+          value: oci
+        - name: SKIP_PUSH
+          value: 'false'
       runAfter:
-        - package
+        - package-and-test
       taskRef:
-        kind: Task
-        name: kaniko
+        kind: ClusterTask
+        name: buildah
       workspaces:
         - name: source
           workspace: source-folder
-        - name: dockerconfig
-          workspace: docker-config
+    - name: image-tag
+      params:
+        - name: srcImageURL
+          value: >-
+            docker://$(params.output-image):$(tasks.git-clone.results.commit)
+        - name: destImageURL
+          value: >-
+            docker://$(params.output-image):latest
+      runAfter:
+        - image-build-push
+      taskRef:
+        kind: ClusterTask
+        name: skopeo-copy
+      workspaces:
+        - name: images-url
+          workspace: image-urls-scm
   workspaces:
     - name: source-folder
     - name: maven-settings
-    - name: docker-config
+    - name: image-urls-scm

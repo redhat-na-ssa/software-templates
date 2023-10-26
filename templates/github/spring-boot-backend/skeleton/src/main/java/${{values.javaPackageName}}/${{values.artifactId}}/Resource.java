@@ -1,0 +1,28 @@
+package ${{ values.groupId }}.${{ values.artifactId }};
+
+import static java.lang.System.Logger.Level.INFO;
+import static java.lang.invoke.MethodHandles.lookup;
+
+import java.lang.System.Logger;
+
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@RequestMapping("/api")
+public class Resource {
+
+    private static final Logger LOGGER = System.getLogger(lookup().lookupClass().getName());
+
+    public Resource() {
+    }
+
+    @GetMapping(path = "/hello", produces = MediaType.TEXT_PLAIN_VALUE)
+    public String hello() {
+        LOGGER.log(INFO, "Spring Boot: hello");
+        return "Spring Boot: hello";
+    }
+
+}

@@ -9,7 +9,7 @@ components:
         - exposure: public
           name: home
           protocol: http
-          targetPort: 8080
+          targetPort: ${{ values.port }}
           path: /
       volumeMounts:
         - name: m2
