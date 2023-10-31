@@ -10,8 +10,18 @@ spec:
   project: janus
   source:
     repoURL: ${{ values.destination }}
-    targetRevision: HEAD
+    targetRevision: no-vault
     path: ./helm/build
+    helm:
+      parameters:
+       # change this params only via ArgoCD UI, DON'T COMMIT YOUR SECRET TO GIT!!!
+       # on production use a Vault mechanism to manage your secrets!!!
+      - name: secrets.githubUsername
+        value: 'CHANGE-ME!!!'
+      - name: secrets.githubPAT
+        value: 'CHANGE-ME!!!'
+      - name: secrets.registryEncodedDockerConfigJson
+        value: 'ewogICJhdXRocyI6IHsKICAgICJxdWF5LmlvIjogewogICAgICAiYXV0aCI6ICIuLi5jaGFuZ2UtbWUuLi4iCiAgICB9CiAgfQp9' #CHANGE-ME!!!
   destination:
     server: https://kubernetes.default.svc
     namespace: ${{ values.component_id }}-dev

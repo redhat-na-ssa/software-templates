@@ -10,7 +10,7 @@ spec:
   project: janus
   source:
     repoURL: ${{ values.destination }}
-    targetRevision: HEAD
+    targetRevision: no-vault
     path: ./helm/app
     helm:
       parameters:
