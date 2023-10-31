@@ -189,6 +189,10 @@ spec:
           ci: ${{ parameters.ci }}
           artifactId: ${{ parameters.artifactId }}
           sourceControl: github.com # If using a Hosted Enterprise GithHub replace with your internal domain
+          imageRegistry: ${{ parameters.image_registry }}
+          imageOrganization: ${{ parameters.image_organization }}
+          imageName: ${{ parameters.artifactId }}
+          clusterDomainUrl: ${{ parameters.cluster_domain_url }}
 
     - id: publish
       name: Publishing to the Source Code Repository

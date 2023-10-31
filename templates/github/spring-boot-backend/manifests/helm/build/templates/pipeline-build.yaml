@@ -46,7 +46,7 @@ spec:
             - package
             # - '-DskipTests'
             - '-e'
-            # - '-B'
+            - '-B'
             # - '-Dmaven.repo.local=$(workspaces.source.path)/.m2'
         # - name: CONTEXT_DIR
         #   value: $(params.clone-subdir)/$(params.app-name)

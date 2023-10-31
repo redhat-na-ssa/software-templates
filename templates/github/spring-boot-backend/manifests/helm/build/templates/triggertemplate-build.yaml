@@ -30,7 +30,7 @@ spec:
             value: $(tt.params.output-image)
         pipelineRef:
           name: {{ .Values.app.name }}-build
-        serviceAccountName: image-pusher
+        serviceAccountName: pipeline
         timeout: 1h0m0s
         workspaces:
           - name: source-folder

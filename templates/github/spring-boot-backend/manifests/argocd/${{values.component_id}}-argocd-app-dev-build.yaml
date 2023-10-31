@@ -12,6 +12,16 @@ spec:
     repoURL: ${{ values.destination }}
     targetRevision: HEAD
     path: ./helm/build
+    helm:
+      parameters:
+       # change this params only via ArgoCD UI, DON'T COMMIT YOUR SECRET TO GIT!!!
+       # on production use a Vault mechanism to manage your secrets!!!ß
+      - name: secrets.githubUsername
+        value: 'CHANGE-ME!!!'
+      - name: secrets.githubPAT
+        value: 'CHANGE-ME!!!'
+      - name: secrets.registryEncodedDockerConfigJson
+        value: 'ewogICJhdXRocyI6IHsKICAgICJxdWF5LmlvIjogewogICAgICAiYXV0aCI6ICIuLi5jaGFuZ2UtbWUuLi4iCiAgICB9CiAgfQp9' #CHANGE-ME!!!
   destination:
     server: https://kubernetes.default.svc
     namespace: ${{ values.component_id }}-dev
@@ -28,3 +38,8 @@ spec:
         duration: 5s # the amount to back off. Default unit is seconds, but could also be a duration (e.g. "2m", "1h")
         factor: 2 # a factor to multiply the base duration after each failed retry
         maxDuration: 10m # the maximum amount of time allowed for the backoff strategy      
+  ignoreDifferences:
+  - group: "triggers.tekton.dev"
+    kind: EventListener
+    jsonPointers:
+    - /spec/triggers

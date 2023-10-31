@@ -17,8 +17,8 @@ image:
   name: ${{values.image_name}}
   # Overrides the image tag whose default is the chart appVersion.
 
-imagePullSecrets:
-  - name: ${{values.component_id}}-registry-creds
+imagePullSecrets: []
+  # - name: ${{values.component_id}}-registry-creds
 
 nameOverride: ""
 fullnameOverride: ""

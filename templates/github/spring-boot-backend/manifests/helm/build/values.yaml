@@ -14,3 +14,11 @@ image:
   host: ${{ values.image_host }}
   organization: ${{ values.image_organization }}
   name: ${{ values.image_name }}
+
+secrets:
+  githubUsername: '...'
+  githubPAT: '...'
+  registryUsername: '...'
+  registryToken: '...'
+  registryEncodedDockerConfigJson: |-
+    QUJDCg==
