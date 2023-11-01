@@ -1,16 +1,16 @@
 apiVersion: backstage.io/v1alpha1
 kind: Location
 metadata:
-  name: janus-gpt-collection
-  description: A collection of Backstage Golden Path Templates for Janus-IDP
+  name: redhat-na-ssa-rhdh-gpt-collection
+  description: A (demo) collection of Backstage Golden Path Templates for Red Hat Developer Hub
 spec:
   type: url
   targets:
-    - https://github.com/redhat-na-ssa/software-templates/blob/main/templates/github/argocd/template.yaml
-    - https://github.com/redhat-na-ssa/software-templates/blob/main/templates/github/backstage-system/template.yaml
-    - https://github.com/redhat-na-ssa/software-templates/blob/main/templates/github/quarkus-backend/template.yaml
-    - https://github.com/redhat-na-ssa/software-templates/blob/main/templates/github/quarkus-web/template.yaml
-    - https://github.com/redhat-na-ssa/software-templates/blob/main/templates/github/register-component/template.yaml
-    - https://github.com/redhat-na-ssa/software-templates/blob/main/templates/github/spring-boot-backend/template.yaml
-    - https://github.com/redhat-na-ssa/software-templates/blob/main/templates/github/techdocs/template.yaml
-    - https://github.com/redhat-na-ssa/software-templates/blob/main/templates/github/tekton/template.yaml
+    - https://github.com/redhat-na-ssa/software-templates/blob/no-vault/templates/github/argocd/template.yaml
+    - https://github.com/redhat-na-ssa/software-templates/blob/no-vault/templates/github/backstage-system/template.yaml
+    - https://github.com/redhat-na-ssa/software-templates/blob/no-vault/templates/github/quarkus-backend/template.yaml
+    - https://github.com/redhat-na-ssa/software-templates/blob/no-vault/templates/github/quarkus-web/template.yaml
+    - https://github.com/redhat-na-ssa/software-templates/blob/no-vault/templates/github/register-component/template.yaml
+    - https://github.com/redhat-na-ssa/software-templates/blob/no-vault/templates/github/spring-boot-backend/template.yaml
+    - https://github.com/redhat-na-ssa/software-templates/blob/no-vault/templates/github/techdocs/template.yaml
+    - https://github.com/redhat-na-ssa/software-templates/blob/no-vault/templates/github/tekton/template.yaml
