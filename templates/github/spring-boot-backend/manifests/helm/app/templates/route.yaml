@@ -20,4 +20,7 @@ spec:
     kind: Service
     name: {{ include "springboot-template.fullname" $ }}
   wildcardPolicy: None
+  tls:
+    insecureEdgeTerminationPolicy: Redirect
+    termination: edge
 {{- end }}

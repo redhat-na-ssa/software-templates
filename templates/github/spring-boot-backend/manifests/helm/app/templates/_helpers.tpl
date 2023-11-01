@@ -40,6 +40,7 @@ backstage.io/kubernetes-id: ${{values.component_id}}
 {{- define "springboot-template.labels" -}}
 backstage.io/kubernetes-id: ${{values.component_id}}
 helm.sh/chart: {{ include "springboot-template.chart" . }}
+app.openshift.io/runtime: spring-boot
 {{ include "springboot-template.selectorLabels" . }}
 {{- if .Chart.AppVersion }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}

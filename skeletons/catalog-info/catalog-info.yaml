@@ -36,6 +36,13 @@ metadata:
     {%- elif values.sourceControl == "dev.azure.com" %}
     dev.azure.com/project-repo: ${{ values.orgName }}/${{ values.repoName }}
     {%- endif %}
+    {%- if values.imageRegistry == "Quay" %}
+    quay.io/repository-slug: ${{ values.imageOrganization }}/${{ values.imageName }}
+    {%- endif %}
+  links:
+    - url: https://devspaces${{ values.clusterDomainUel }}/#https://${{ values.sourceControl }}/${{ values.orgName }}/${{ values.repoName }}
+      title: OpenShift Dev Spaces (VS Code editor)
+      icon: web
 spec:
   type: ${{ values.applicationType }}
   {%- if values.system %}

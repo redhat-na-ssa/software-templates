@@ -1,8 +1,8 @@
 apiVersion: backstage.io/v1alpha1
 kind: Location
 metadata:
-  name: janus-gpt-collection
-  description: A collection of Backstage Golden Path Templates for Janus-IDP
+  name: redhat-na-ssa-rhdh-gpt-collection
+  description: A (demo) collection of Backstage Golden Path Templates for Red Hat Developer Hub
 spec:
   type: url
   targets:

@@ -37,16 +37,16 @@ spec:
           workspace: source-folder
     - name: package-and-test
       params:
-        - name: MAVEN_IMAGE
-          value: >-
-            image-registry.openshift-image-registry.svc:5000/openshift/java:latest
+        # - name: MAVEN_IMAGE
+        #   value: >-
+        #     image-registry.openshift-image-registry.svc:5000/openshift/java:latest
         - name: GOALS
           value:
             - clean
             - package
             # - '-DskipTests'
             - '-e'
-            # - '-B'
+            - '-B'
             # - '-Dmaven.repo.local=$(workspaces.source.path)/.m2'
         # - name: CONTEXT_DIR
         #   value: $(params.clone-subdir)/$(params.app-name)
@@ -98,6 +98,10 @@ spec:
         - name: destImageURL
           value: >-
             docker://$(params.output-image):latest
+        - name: srcTLSverify
+          value: 'true'
+        - name: destTLSverify
+          value: 'true'
       runAfter:
         - image-build-push
       taskRef:
