@@ -37,9 +37,9 @@ spec:
           workspace: source-folder
     - name: package-and-test
       params:
-        - name: MAVEN_IMAGE
-          value: >-
-            image-registry.openshift-image-registry.svc:5000/openshift/java:latest
+        # - name: MAVEN_IMAGE
+        #   value: >-
+        #     image-registry.openshift-image-registry.svc:5000/openshift/java:latest
         - name: GOALS
           value:
             - clean
@@ -98,6 +98,10 @@ spec:
         - name: destImageURL
           value: >-
             docker://$(params.output-image):latest
+        - name: srcTLSverify
+          value: 'true'
+        - name: destTLSverify
+          value: 'true'
       runAfter:
         - image-build-push
       taskRef:
