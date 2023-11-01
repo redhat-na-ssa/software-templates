@@ -1,4 +1,4 @@
-package ${{ values.groupId }}.${{ values.artifactId }};
+package ${{ values.groupId }};
 
 import static java.lang.System.Logger.Level.INFO;
 import static java.lang.invoke.MethodHandles.lookup;
