@@ -1,4 +1,4 @@
-package ${{ values.groupId }}.${{ values.artifactId }};
+package ${{ values.groupId }};
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;

@@ -5,7 +5,7 @@ metadata:
 spec:
   gitHub:
     gitServerCredentials:
-      name: {{ .Values.app.name }}-github-pat
+      name: {{ .Values.app.name }}-github-pat-webhhok
   repositoryOwner: {{ .Values.git.org }}
   ownerType:  "organization"
   repositoryName: {{ .Values.git.name }}
