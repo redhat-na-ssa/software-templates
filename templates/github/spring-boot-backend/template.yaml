@@ -71,12 +71,12 @@ spec:
         groupId:
           title: Group ID
           type: string
-          default: io.janus
+          default: com.redhat.com
           description: Maven Group ID eg (io.janus)
         artifactId:
           title: Artifact ID
           type: string
-          default: spring-boot-app
+          default: my-springboot-app
           description: Maven Artifact ID
         javaPackageName:
           title: Java Package Namespace
@@ -122,6 +122,7 @@ spec:
                   title: Project Namespace
                   type: string
                   description: The Project Namespace for deploying resources to the cluster
+                  default: my-springboot-app
                 ci:
                   const: ../../../skeletons/tekton/
                 image_registry:
@@ -261,3 +262,9 @@ spec:
       - title: Open the Catalog Info Component
         icon: catalog
         entityRef: ${{ steps.register.output.entityRef }}
+    text:
+      - title: Additional information
+        content: |
+          #Required manual steps
+          * Go to `${{ parameters.image_host }}` and create a new image repository in your Container Registry named `${{ parameters.artifactId }}` under the `${{ parameters.image_organization }}` organization.
+          > If created as private repo remember to grant permissions to the registry user supposed to push/pull images from this repository.
