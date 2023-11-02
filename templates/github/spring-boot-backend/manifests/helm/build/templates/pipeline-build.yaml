@@ -47,6 +47,9 @@ spec:
             # - '-DskipTests'
             - '-e'
             - '-B'
+            # in case your internal maven repo uses a self-signed cert
+            - '-Dmaven.wagon.http.ssl.insecure=true'
+            - '-Dmaven.wagon.http.ssl.allowall=true'
             # - '-Dmaven.repo.local=$(workspaces.source.path)/.m2'
         # - name: CONTEXT_DIR
         #   value: $(params.clone-subdir)/$(params.app-name)
