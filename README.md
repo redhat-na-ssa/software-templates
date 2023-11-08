@@ -17,21 +17,20 @@ In order to automate the secrets provisioning these templates generates some Cus
 The Custom Resources in these templates also expect the following secrets to be present in your Vault instance
 
 ```
-path: kv/secrets/janusidp/github-plugin
+path: kv/secrets/rhdh/github-plugin
 data:
   app_id: '...' 
   org: '...'
-  private_key: '...'
+  key: '...'
 ```
 
 and 
 
 ```
-path: secrets/{{ rhdh_instance_name }}/registry
+path: secrets/thdh/registry-plugin
 data:
-  credentials: '...'
-  user: '...'
-  token: '...'
+  username: '...'
+  password: '...'
 ```
 
 > If you don't have Hashicorp Vault setup on your environment you can switch over to the `no-vault` branch which does not use Vault integration.

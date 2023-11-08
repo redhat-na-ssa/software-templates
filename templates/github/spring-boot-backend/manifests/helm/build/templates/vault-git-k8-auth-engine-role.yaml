@@ -10,7 +10,7 @@ spec:
     role: policy-admin
   path: kubernetes
   policies:
-    - {{ .Values.app.name }}-read-token  
+    - {{ .Values.app.name }}-read-token
   targetServiceAccounts:
   - default      
   targetNamespaces:

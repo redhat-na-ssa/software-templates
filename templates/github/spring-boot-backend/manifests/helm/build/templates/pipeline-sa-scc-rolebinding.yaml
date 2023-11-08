@@ -5,7 +5,7 @@ metadata:
 subjects:
   - kind: ServiceAccount
     name: pipeline
-    namespace: ${{values.component_id}}-dev
+    namespace: {{ .Values.app.namespace }}
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
