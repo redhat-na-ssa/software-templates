@@ -22,3 +22,6 @@ secrets:
   registryToken: '...'
   registryEncodedDockerConfigJson: |-
     QUJDCg==
+
+maven:
+  mirror-utl: 'https://repo1.maven.org/maven2/'

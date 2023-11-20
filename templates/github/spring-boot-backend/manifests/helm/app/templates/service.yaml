@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "springboot-template.fullname" . }}
+  name: ${{values.component_id}}
   labels:
     {{- include "springboot-template.labels" . | nindent 4 }}
 spec:

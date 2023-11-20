@@ -20,6 +20,10 @@ spec:
       description: reference of the image that will get created
       default: {{ include "image.dev-url" . }}
       type: string
+    - name: maven-mirror-url
+      description: Maven repo manager URL (eg. Sonatype Nexus)
+      default: {{ .Values.maven.mirror-url }}
+      type: string
   tasks:
     - name: git-clone
       params:
@@ -53,8 +57,8 @@ spec:
             # - '-Dmaven.repo.local=$(workspaces.source.path)/.m2'
         # - name: CONTEXT_DIR
         #   value: $(params.clone-subdir)/$(params.app-name)
-        # - name: MAVEN_MIRROR_URL
-        #   value: $(params.maven-mirror-url)
+        - name: MAVEN_MIRROR_URL
+          value: $(params.maven-mirror-url)
       runAfter:
         - git-clone
       taskRef:
@@ -70,9 +74,6 @@ spec:
         - name: IMAGE
           value: >-
             $(params.output-image):$(tasks.git-clone.results.commit)
-        # - name: BUILDER_IMAGE
-        #   value: >-
-        #     registry.redhat.io/rhel8/buildah@sha256:ac0b8714cc260c94435cab46fe41b3de0ccbc3d93e38c395fa9d52ac49e521fe
         - name: STORAGE_DRIVER
           value: vfs
         - name: DOCKERFILE
@@ -102,9 +103,9 @@ spec:
           value: >-
             docker://$(params.output-image):latest
         - name: srcTLSverify
-          value: 'true'
+          value: 'false'
         - name: destTLSverify
-          value: 'true'
+          value: 'false'
       runAfter:
         - image-build-push
       taskRef:
