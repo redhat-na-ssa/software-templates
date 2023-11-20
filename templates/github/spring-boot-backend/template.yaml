@@ -186,7 +186,7 @@ spec:
           system: ${{ parameters.system }}
           applicationType: service
           description: ${{ parameters.description }}
-          namespace: ${{ parameters.namespace }}
+          namespace: ${{ parameters.namespace }}-dev
           ci: ${{ parameters.ci }}
           artifactId: ${{ parameters.artifactId }}
           sourceControl: github.com # If using a Hosted Enterprise GithHub replace with your internal domain
@@ -232,7 +232,6 @@ spec:
           image_organization: ${{ parameters.image_organization }}
           image_name: ${{ parameters.artifactId }}
           port: ${{ parameters.port }}
-          deployment_name: springboot-template
         targetPath: ./tenant-gitops
 
     - id: publish-gitops

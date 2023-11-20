@@ -6,7 +6,7 @@ metadata:
     "helm.sh/hook": post-install,post-upgrade
   labels:
     {{- include "springboot-template.labels" $ | nindent 4 }}
-  name: {{ include "springboot-template.fullname" $ }}
+  name: ${{values.component_id}}
 spec:
   {{- if .host }}
   host: {{ .host }}
@@ -18,7 +18,7 @@ spec:
     targetPort: {{ $.Values.service.port }}
   to:
     kind: Service
-    name: {{ include "springboot-template.fullname" $ }}
+    name: ${{values.component_id}}
   wildcardPolicy: None
   tls:
     insecureEdgeTerminationPolicy: Redirect

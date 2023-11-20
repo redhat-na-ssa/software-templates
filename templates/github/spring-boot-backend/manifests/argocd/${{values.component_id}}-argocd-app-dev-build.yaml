@@ -43,3 +43,7 @@ spec:
     kind: EventListener
     jsonPointers:
     - /spec/triggers
+  - group: "v1"
+    kind: Secret
+    jsonPointers:
+    - /data
