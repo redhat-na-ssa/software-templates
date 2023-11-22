@@ -42,7 +42,7 @@ spec:
       workspaces:
         - name: images-url
           workspace: images-url
-    - name: patch-deployment
+    - name: patch-deployment # NOTE: it does not work if using a different cluster as preprod/qa
       params:
         - name: namespace
           value: '$(params.namespace)'

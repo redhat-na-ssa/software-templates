@@ -10,7 +10,7 @@ spec:
   project: default
   source:
     repoURL: ${{ values.destination }}
-    targetRevision: no-vault
+    targetRevision: HEAD
     path: ./helm/app
     helm:
       parameters:
@@ -20,6 +20,8 @@ spec:
         value: prod
       - name: image.tag
         value: prod
+      - name: secrets.registryEncodedDockerConfigJson
+        value: 'ewogICJhdXRocyI6IHsKICAgICJxdWF5LmlvIjogewogICAgICAiYXV0aCI6ICIuLi5jaGFuZ2UtbWUuLi4iCiAgICB9CiAgfQp9' #CHANGE-ME!!!
   destination:
     server: https://kubernetes.default.svc
     namespace: ${{ values.component_id }}-prod

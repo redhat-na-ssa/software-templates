@@ -20,8 +20,7 @@ secrets:
   githubPAT: '...'
   registryUsername: '...'
   registryToken: '...'
-  registryEncodedDockerConfigJson: |-
-    QUJDCg==
+  registryEncodedDockerConfigJson: 'ewogICJhdXRocyI6IHsKICAgICJxdWF5LmlvIjogewogICAgICAiYXV0aCI6ICIuLi5jaGFuZ2UtbWUuLi4iCiAgICB9CiAgfQp9' #CHANGE-ME!!!
 
 maven:
-  mirror-utl: 'https://repo1.maven.org/maven2/'
+  mirrorUrl: 'https://repo1.maven.org/maven2/'

@@ -10,7 +10,7 @@ spec:
   project: default
   source:
     repoURL: ${{ values.destination }}
-    targetRevision: no-vault
+    targetRevision: HEAD
     path: ./helm/build
     helm:
       parameters:
