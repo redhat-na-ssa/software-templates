@@ -24,4 +24,4 @@ secrets:
     QUJDCg==
 
 maven:
-  mirror-utl: 'https://repo1.maven.org/maven2/'
+  mirrorUrl: 'https://repo1.maven.org/maven2/'

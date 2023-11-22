@@ -35,6 +35,8 @@ spec:
           type: string
         repoName:
           title: Git Repository Name
+          description: Unique name for this app git repository
+          default: my-springboot-app
           type: string
         description:
           title: Description

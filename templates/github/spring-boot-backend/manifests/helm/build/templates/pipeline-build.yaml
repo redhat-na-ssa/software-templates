@@ -22,7 +22,7 @@ spec:
       type: string
     - name: maven-mirror-url
       description: Maven repo manager URL (eg. Sonatype Nexus)
-      default: {{ .Values.maven.mirror-url }}
+      default: {{ .Values.maven.mirrorUrl }}
       type: string
   tasks:
     - name: git-clone
