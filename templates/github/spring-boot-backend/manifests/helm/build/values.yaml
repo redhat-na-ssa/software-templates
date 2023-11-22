@@ -15,12 +15,5 @@ image:
   organization: ${{ values.image_organization }}
   name: ${{ values.image_name }}
 
-secrets:
-  githubUsername: '...'
-  githubPAT: '...'
-  registryUsername: '...'
-  registryToken: '...'
-  registryEncodedDockerConfigJson: 'ewogICJhdXRocyI6IHsKICAgICJxdWF5LmlvIjogewogICAgICAiYXV0aCI6ICIuLi5jaGFuZ2UtbWUuLi4iCiAgICB9CiAgfQp9' #CHANGE-ME!!!
-
 maven:
   mirrorUrl: 'https://repo1.maven.org/maven2/'
