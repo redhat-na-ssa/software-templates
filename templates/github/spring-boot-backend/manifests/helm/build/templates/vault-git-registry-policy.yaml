@@ -19,6 +19,6 @@ spec:
     path "/quay/static-creds/{{ .Values.app.name }}" {
       capabilities = ["read"]
     }
-    path "/kv/secrets/rhdhidp/registry-plugin" {
+    path "/kv/secrets/rhdh/registry-plugin" {
       capabilities = ["read"]
     }
