@@ -19,9 +19,6 @@ metadata:
   description: ${{ values.description }}
   {%- endif %}
   annotations:
-    {%- if values.hostUrl %}
-    argocd/app-name: ${{ name }}
-    {%- endif %}
     {%- if values.ci == "../../../skeletons/tekton/" %}
     tektonci/build-namespace: ${{ values.namespace }}
     janus-idp.io/tekton: ${{ name }}

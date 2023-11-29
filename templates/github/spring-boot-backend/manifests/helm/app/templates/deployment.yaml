@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: ${{values.component_id}}
+  name: ${{ values.component_id }}
   labels:
     {{- include "backstage.labels" . | nindent 4 }}
     {{- include "springboot-template.labels" . | nindent 4 }}
@@ -30,7 +30,7 @@ spec:
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
-        - name: {{ .Chart.Name }}
+        - name: {{ include "springboot-template.name" . }}
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: {{ include "springboot-template.image" . }}
