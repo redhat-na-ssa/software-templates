@@ -34,11 +34,11 @@ Create chart name and version as used by the chart label.
 Common labels
 */}}
 {{- define "backstage.labels" -}}
-backstage.io/kubernetes-id: ${{values.component_id}}
+backstage.io/kubernetes-id: ${{ values.component_id }}
 {{- end }}
 
 {{- define "springboot-template.labels" -}}
-backstage.io/kubernetes-id: ${{values.component_id}}
+backstage.io/kubernetes-id: ${{ values.component_id }}
 helm.sh/chart: {{ include "springboot-template.chart" . }}
 app.openshift.io/runtime: spring-boot
 {{ include "springboot-template.selectorLabels" . }}

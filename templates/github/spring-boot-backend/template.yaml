@@ -222,7 +222,6 @@ spec:
         copyWithoutTemplating: []
         values:
           component_id: ${{ parameters.componentId }}
-          # description: ${{ parameters.description }}
           destination: https://github.com/${{ parameters.orgName }}/${{ parameters.repoName }}-gitops
           source_repository: https://github.com/${{ parameters.orgName }}/${{ parameters.repoName }}
           repository_name: ${{ parameters.repoName }}

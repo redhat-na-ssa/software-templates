@@ -21,9 +21,10 @@ spec:
       default: latest
     - name: destination-image-tag
       type: string
-      default: latest
+      default: "preprod"
     - name: namespace
       type: string
+      default: ${{ values.component_id }}-preprod
   tasks:
 {{- if eq .Values.image.registry "Quay" }}
     - name: quay-tag-promote
@@ -37,7 +38,7 @@ spec:
         - name: destTLSverify
           value: 'false'
       taskRef:
-        kind: Task
+        kind: ClusterTask
         name: skopeo-copy
       workspaces:
         - name: images-url
@@ -65,7 +66,7 @@ spec:
         - name: destTLSverify
           value: 'false'
       taskRef:
-        kind: Task
+        kind: ClusterTask
         name: skopeo-copy
       workspaces:
         - name: images-url
@@ -81,7 +82,7 @@ spec:
         - name: destTLSverify
           value: 'false'
       taskRef:
-        kind: Task
+        kind: ClusterTask
         name: skopeo-copy
       runAfter:
         - copy-image-tag

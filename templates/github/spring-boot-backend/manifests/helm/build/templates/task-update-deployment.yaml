@@ -6,7 +6,7 @@ spec:
   params:
     - name: deployment
       description: The name of the deployment patch the image
-      default: ${{values.component_id}}
+      default: ${{ values.component_id }}
       type: string
     - name: namespace
       description: The namespace of the target deployment

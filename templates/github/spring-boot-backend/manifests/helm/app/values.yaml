@@ -13,16 +13,16 @@ replicaCount: 1
 
 image:
   pullPolicy: IfNotPresent
-  registry: ${{values.image_registry}}
-  host: ${{values.image_host}}
-  organization: ${{values.image_organization}}
-  name: ${{values.image_name}}
+  registry: ${{ values.image_registry }}
+  host: ${{ values.image_hos t}}
+  organization: ${{ values.image_organization }}
+  name: ${{ values.image_name }}
   # Overrides the image tag whose default is the chart appVersion.
 
 imagePullSecrets:
-  - name: ${{values.component_id}}-registry-creds
+  - name: ${{ values.component_id }}-registry-creds
 
-nameOverride: ""
+nameOverride: "${{ values.component_id }}"
 fullnameOverride: ""
 
 serviceAccount:
