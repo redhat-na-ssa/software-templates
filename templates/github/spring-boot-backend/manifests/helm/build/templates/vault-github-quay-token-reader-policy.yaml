@@ -2,12 +2,14 @@ apiVersion: redhatcop.redhat.io/v1alpha1
 kind: Policy
 metadata:
   name: {{ .Values.app.name }}-read-token
-  namespace: vault-admin
+  namespace: {{ .Values.vault.adminNamespace }}
 spec:
   # Add fields here
   authentication: 
-    path: kubernetes
-    role: policy-admin
+    path: {{ .Values.vault.adminAuthEngineMountName }}
+    role: {{ .Values.vault.adminRole }}
+    serviceAccount:
+      name: default
   policy: |
     # create tokens
     path "/github/token/{{ .Values.app.name }}" {

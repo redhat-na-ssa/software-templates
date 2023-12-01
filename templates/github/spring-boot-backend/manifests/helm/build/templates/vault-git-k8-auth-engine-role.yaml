@@ -2,13 +2,14 @@ apiVersion: redhatcop.redhat.io/v1alpha1
 kind: KubernetesAuthEngineRole
 metadata:
   name: {{ .Values.app.name }}-vault-role
-  namespace: vault-admin
+  namespace: {{ .Values.vault.adminNamespace }}
 spec:
-  # Add fields here
   authentication: 
-    path: kubernetes
-    role: policy-admin
-  path: kubernetes
+    path: {{ .Values.vault.adminAuthEngineMountName }}
+    role: {{ .Values.vault.adminRole }}
+    serviceAccount:
+      name: default
+  path: {{ .Values.vault.appAuthEngineMountName }}/{{ .Values.app.name }}-kubernetes
   policies:
     - {{ .Values.app.name }}-read-token
   targetServiceAccounts:

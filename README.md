@@ -2,12 +2,14 @@
 
 Collection of Software Templates / Golden Path for Red Hat Developer Hub.
 
-> NOTE: some of the Templates available in this collection relies on [**Hashicorp Vault**](https://www.vaultproject.io/) to manage Secrets (eg. Github and Quay tokens). 
+> NOTE: some of the Templates available in this collection relies on [**Hashicorp Vault**](https://www.vaultproject.io/) to manage Secrets (eg. Github and Quay access tokens). 
 
-Two additional plugins are required to be installed and enabled in your Vault Server:
+Two additional Secret Engine plugins are required to be installed and enabled on Vault Server:
 
  * [vault-plugin-secrets-github](https://github.com/martinbaillie/vault-plugin-secrets-github)
  * [vault-plugin-secrets-quay](https://github.com/redhat-cop/vault-plugin-secrets-quay/)
+
+These Secret Engines can create access tokens dynamically on Github and Quay using its APIs and store them in Vault.
 
 > after installing these two Secret Engine Plugins into Vault server you can enable them by:
 ```sh

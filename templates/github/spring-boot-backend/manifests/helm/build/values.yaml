@@ -17,3 +17,11 @@ image:
 
 maven:
   mirrorUrl: 'https://repo1.maven.org/maven2/'
+
+vault:
+  #namespace where the ServiceAccount is able to authenticate agains Vault 
+  adminNamespace: 'vault-admin'
+  adminAuthEngineMountName: 'dev-cluster-admin'
+  #Vault admin role associated to the Kubernetes Auth Engine Mount
+  adminRole: 'vault-admin'
+  appAuthEngineMountName: 'dev-cluster'
