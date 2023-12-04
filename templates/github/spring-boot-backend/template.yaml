@@ -95,9 +95,14 @@ spec:
           type: string
           description: This action will create a CI pipeline for your application based on chosen method
           default: ../../../skeletons/github-actions/
+          #use this 'path' while testing on the Template Editor UI
+          #default: ./skeletons/github-actions/
           enum:
             - ../../../skeletons/github-actions/
             - ../../../skeletons/tekton/
+            #use this 'path' while testing on the Template Editor UI
+            #- ./skeletons/github-actions/
+            #- ./skeletons/tekton/
           enumNames:
             - GitHub Action
             - Tekton
@@ -165,6 +170,7 @@ spec:
       action: fetch:template
       input:
         url: ./skeleton
+        targetPath: ./source
         values:
           orgName: ${{ parameters.orgName }}
           repoName: ${{ parameters.repoName }}
@@ -180,6 +186,8 @@ spec:
       action: fetch:template
       input:
         url: ../../../skeletons/catalog-info/
+        #use this 'url' while testing on the Template Editor UI
+        #url: ./skeletons/catalog-info/
         values:
           name: ${{ parameters.componentId }}
           orgName: ${{ parameters.orgName }}
@@ -219,6 +227,9 @@ spec:
       action: fetch:template
       input:
         url: ./manifests
+        #use this 'url' while testing on the Template Editor UI
+        #url: ./templates/github/spring-boot-backend/manifests
+        targetPath: ./manifests
         copyWithoutTemplating: []
         values:
           component_id: ${{ parameters.componentId }}
@@ -233,7 +244,6 @@ spec:
           image_organization: ${{ parameters.image_organization }}
           image_name: ${{ parameters.artifactId }}
           port: ${{ parameters.port }}
-        targetPath: ./tenant-gitops
 
     - id: publish-gitops
       name: Publishing to Resource Repository
