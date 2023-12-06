@@ -49,10 +49,10 @@ securityContext: {}
 
 service:
   type: ClusterIP
-  port: ${{values.port}}
+  port: ${{ values.port }}
 
 route: 
-  host: ""
+  host: "${{ values.component_id }}${{ values.cluster }}"
   path: /
 
 resources: {}
