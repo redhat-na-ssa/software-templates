@@ -25,3 +25,6 @@ vault:
   #Vault admin role associated to the Kubernetes Auth Engine Mount
   adminRole: 'vault-admin'
   appAuthEngineMountName: 'dev-cluster'
+  #must match with the 'metadata.name' defined in the QuaySecretEngineConfig CRD
+  githubSecretEngineConfig: 'redhat-na-ssa' #CHANGE-ME!!!
+  quaySecretEngineConfig: 'redhat-na-ssa' #CHANGE-ME!!!

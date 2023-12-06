@@ -11,14 +11,14 @@ spec:
     serviceAccount:
       name: default
   policy: |
-    # create tokens
-    path "/github/token/{{ .Values.app.name }}" {
+    # read tokens
+    path "/github/token/{{ .Values.vault.githubSecretEngineConfig }}" {
       capabilities = ["read"]
     }
-    path "/quay/creds/{{ .Values.app.name }}" {
+    path "/quay/creds/{{ .Values.vault.quaySecretEngineConfig }}" {
       capabilities = ["read"]
     }
-    path "/quay/static-creds/{{ .Values.app.name }}" {
+    path "/quay/static-creds/{{ .Values.vault.quaySecretEngineConfig }}" {
       capabilities = ["read"]
     }
     path "/kv/secrets/rhdh/registry-plugin" {
