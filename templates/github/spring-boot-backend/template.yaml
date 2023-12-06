@@ -170,7 +170,7 @@ spec:
       action: fetch:template
       input:
         url: ./skeleton
-        targetPath: ./source
+        #targetPath: ./source
         values:
           orgName: ${{ parameters.orgName }}
           repoName: ${{ parameters.repoName }}
@@ -229,7 +229,7 @@ spec:
         url: ./manifests
         #use this 'url' while testing on the Template Editor UI
         #url: ./templates/github/spring-boot-backend/manifests
-        targetPath: ./manifests
+        #targetPath: ./manifests
         copyWithoutTemplating: []
         values:
           component_id: ${{ parameters.componentId }}
