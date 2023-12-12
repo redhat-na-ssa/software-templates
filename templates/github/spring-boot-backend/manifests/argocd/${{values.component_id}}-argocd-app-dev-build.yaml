@@ -12,6 +12,8 @@ spec:
     repoURL: ${{ values.destination }}
     targetRevision: HEAD
     path: ./helm/build
+    helm:
+      version: v3
   destination:
     server: https://kubernetes.default.svc
     namespace: ${{ values.component_id }}-dev

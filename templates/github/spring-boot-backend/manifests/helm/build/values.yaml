@@ -8,6 +8,7 @@ git:
   repo: ${{ values.source_repository }}
   org: ${{ values.git_owner }}
   name: ${{ values.repository_name }}
+  apiUrl: https://api.github.com # REPLACE in case of a hosted Git Hub Enterprise (eg. https://my.github.com/api/v3/)
 
 image:
   registry: ${{ values.image_registry }}

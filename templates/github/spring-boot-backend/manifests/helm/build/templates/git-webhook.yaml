@@ -6,6 +6,7 @@ spec:
   gitHub:
     gitServerCredentials:
       name: {{ .Values.app.name }}-github-pat-webhook
+      gitHubAPIServerURL: {{ .Values.git.apiUrl }}
   repositoryOwner: {{ .Values.git.org }}
   ownerType:  "organization"
   repositoryName: {{ .Values.git.name }}

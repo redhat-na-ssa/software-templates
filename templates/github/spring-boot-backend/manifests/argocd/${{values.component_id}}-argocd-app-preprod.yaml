@@ -13,6 +13,7 @@ spec:
     targetRevision: HEAD
     path: ./helm/app
     helm:
+      version: v3
       parameters:
       - name: namespace.name
         value: ${{ values.component_id }}-preprod
