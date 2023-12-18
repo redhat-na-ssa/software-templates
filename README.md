@@ -34,3 +34,4 @@ the Template functionality available in the UI. See below how to access it.
 ![Backstage Template editor](docs/backstage-template-editor.gif "Template Editor")
 
 > NOTE: make sure you choose 'Load from a directory' to load this git repo from your local file system and point it to the root of this repo. Any change you make using the web editor will base saved only in your file system.
+> In order to open this template in the Template Editor you need load the root directory of this repo. Also you need to temporally change the relative paths located at lines `98, 103, 189 and 230` at the [Springboot template](templates/github/spring-boot-backend/template.yaml). There are lines commented out for you to make these changes. **After finishing you changes make sure you get back to the original paths before pushing to git.** 
