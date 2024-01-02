@@ -2,8 +2,6 @@
 apiVersion: route.openshift.io/v1
 kind: Route
 metadata:
-  annotations:
-    "helm.sh/hook": post-install,post-upgrade
   labels:
     {{- include "springboot-template.labels" $ | nindent 4 }}
   name: ${{values.component_id}}
