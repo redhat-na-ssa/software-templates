@@ -85,7 +85,54 @@ spec:
           type: string
           default: com/redhat/demos
           description: Name for the Java Package (ensure to use the / character as this is used for folder structure) should match Group ID and Artifact ID
-
+    - title: Does the App provides an API?
+      required:
+        - providesApi
+        - apiType
+        - apiSwaggerUI
+        - apiSpecFileUrl
+      properties:
+        providesApi:
+          title: 'Choose'
+          type: boolean
+          default: false
+          ui:widget: radio
+      dependencies:
+        providesApi:
+          oneOf:
+            - properties:
+                providesApi:
+                  enum:
+                    - false
+            - properties:
+                providesApi:
+                  enum:
+                    - true
+                apiType:
+                  title: API Type
+                  type: string
+                  description: The Url for the OpenApi spec file endpoint
+                  default: openapi
+                  enum:
+                    - openapi
+                    - asyncapi
+                    - graphql
+                    - grpc
+                  enumNames:
+                    - OpenAPI
+                    - AsyncAPI
+                    - GraphQL
+                    - gRPC
+                apiSwaggerUI:
+                  title: Swagger UI URL
+                  type: string
+                  description: The Url for the API spec file endpoint
+                  default: 'https://REPLACE-ME/swagger-ui.html'
+                apiSpecFileUrl:
+                  title: API Spec URL
+                  type: string
+                  description: The Url for the OpenApi spec file endpoint
+                  default: 'https://REPLACE-ME/v3/api-doc.yaml'
     - title: Provide information about the CI method
       required:
         - ci
@@ -210,6 +257,10 @@ spec:
           imageOrganization: ${{ parameters.image_organization }}
           imageName: ${{ parameters.artifactId }}
           clusterDomainUrl: ${{ parameters.cluster_domain_url }}
+          providesApi: ${{ parameters.providesApi }}
+          apiType: ${{ parameters.apiType }}
+          apiSwaggerUI: ${{ parameters.apiSwaggerUI }}
+          apiSpecFileUrl: ${{ parameters.apiSpecFileUrl }}
 
     - id: publish
       name: Publishing to the Source Code Repository

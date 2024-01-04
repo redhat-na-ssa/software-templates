@@ -82,6 +82,5 @@ Create the Route host Url to use
 {{- if .Values.environment }}
 {{- printf "%s-%s.${{ values.cluster }}" .Values.app.name .Values.environment }}
 {{- else }}
-{{- default "default" "" }}
-{{- end }}
+{{- default "" .Values.route.host }}
 {{- end }}

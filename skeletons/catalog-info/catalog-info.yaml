@@ -59,3 +59,42 @@ spec:
   partOf:
     - ${{ values.partOf }}
   {%- endif %}
+  {%- if values.providesApi %}
+  providesApis:
+    - ${{ name }}
+  {%- endif %}
+{%- if values.providesApi %}
+---
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: ${{ name }}
+  description: ${{ name }} API
+  links:
+    {%- if values.apiSwaggerUI %}
+    - url: ${{ values.apiSwaggerUI }}
+      title: Swagger UI
+      icon: web
+    {%- endif %}
+    {%- if values.apiSpecFileUrl %}
+    - url: ${{ values.apiSpecFileUrl }}
+      title: OpenAPI Spec
+      icon: code
+    {%- endif %}
+spec:
+  type: ${{ values.apiType }}
+  {%- if values.system %}
+  system: ${{ values.system }}
+  {%- endif %}
+  {%- if values.lifecycle %}
+  lifecycle: ${{ values.lifecycle }}
+  {%- else %}
+  lifecycle: production
+  {%- endif %}
+  owner: ${{ values.owner }}
+  {%- if values.apiSpecFileUrl %}
+  definition: 
+    # $text: https://my-springboot-app-demo4-dev.apps.cluster-sxqs6.sxqs6.sandbox502.opentlc.com/v3/api-docs.yaml
+    $text: ${{ values.apiSpecFileUrl }}
+  {%- endif %}
+{%- endif %}
