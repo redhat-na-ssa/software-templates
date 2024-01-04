@@ -113,6 +113,8 @@ spec:
                 # Show no extra properties when GitHub Actions is selected
                 ci:
                   const: ../../../skeletons/github-actions/
+                  #use this 'url' while testing on the Template Editor UI
+                  #const: ./skeletons/github-actions/
             - required:
                 - image_registry
                 - image_host
@@ -132,6 +134,8 @@ spec:
                   default: my-springboot-app
                 ci:
                   const: ../../../skeletons/tekton/
+                  #use this 'url' while testing on the Template Editor UI
+                  #const: ./skeletons/tekton/
                 image_registry:
                   title: Image Registry
                   type: string
@@ -170,6 +174,8 @@ spec:
       action: fetch:template
       input:
         url: ./skeleton
+        #use this 'url' while testing on the Template Editor UI
+        #url: ./templates/github/spring-boot-backend/skeleton
         #targetPath: ./source
         values:
           orgName: ${{ parameters.orgName }}
@@ -273,9 +279,3 @@ spec:
       - title: Open the Catalog Info Component
         icon: catalog
         entityRef: ${{ steps.register.output.entityRef }}
-    text:
-      - title: Additional information
-        content: |
-          #Required manual steps
-          * Go to `${{ parameters.image_host }}` and create a new image repository in your Container Registry named `${{ parameters.artifactId }}` under the `${{ parameters.image_organization }}` organization.
-          > If created as private repo remember to grant permissions to the registry user supposed to push/pull images from this repository.
