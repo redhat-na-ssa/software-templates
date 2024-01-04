@@ -124,7 +124,7 @@ spec:
                   title: Cluster Domain Url
                   type: string
                   description: The Cluster Domain URL where the aplication will be deployed to (usually starts with '.apps')
-                  default: '.apps.cluster-6kknq.6kknq.sandbox63.opentlc.com'
+                  default: 'apps.cluster-domain.com (REPLACE-ME!!!)'
                 namespace:
                   title: Project Namespace
                   type: string
@@ -219,6 +219,7 @@ spec:
       name: Registering the Catalog Info Component
       action: catalog:register
       input:
+        # catalogInfoUrl:
         repoContentsUrl: ${{ steps.publish.output.repoContentsUrl }}
         catalogInfoPath: /catalog-info.yaml
 

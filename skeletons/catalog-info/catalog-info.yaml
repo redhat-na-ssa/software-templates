@@ -37,7 +37,7 @@ metadata:
     quay.io/repository-slug: ${{ values.imageOrganization }}/${{ values.imageName }}
     {%- endif %}
   links:
-    - url: https://devspaces${{ values.clusterDomainUrl }}/#https://${{ values.sourceControl }}/${{ values.orgName }}/${{ values.repoName }}
+    - url: https://devspaces.${{ values.clusterDomainUrl }}/#https://${{ values.sourceControl }}/${{ values.orgName }}/${{ values.repoName }}
       title: OpenShift Dev Spaces (VS Code editor)
       icon: web
 spec:

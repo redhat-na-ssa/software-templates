@@ -52,7 +52,7 @@ service:
   port: ${{ values.port }}
 
 route: 
-  host: "${{ values.component_id }}${{ values.cluster }}"
+  host: "${{ values.component_id }}-{{ tpl .Values.environment . }}.${{ values.cluster }}"
   path: /
 
 resources: {}

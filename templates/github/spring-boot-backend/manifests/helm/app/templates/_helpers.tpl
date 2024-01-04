@@ -74,3 +74,14 @@ Create the name of the service account to use
 {{- printf "%s/%s/%s:latest" .Values.image.host .Values.namespace.name .Values.image.name -}}
 {{- end }}
 {{- end }}
+
+{{/*
+Create the Route host Url to use
+*/}}
+{{- define "springboot-template.routeHostUrl" -}}
+{{- if .Values.environment }}
+{{- printf "%s-%s.${{ values.cluster }}" .Values.app.name .Values.environment }}
+{{- else }}
+{{- default "default" "" }}
+{{- end }}
+{{- end }}
