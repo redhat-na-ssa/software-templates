@@ -271,6 +271,16 @@ spec:
         # If using a Hosted Enterprise GithHub replace with your internal domain
         repoUrl: github.com?owner=${{ parameters.orgName }}&repo=${{ parameters.repoName }}
         defaultBranch: main
+        #Allow specific users, teams, or apps to bypass pull request requirements.
+        # bypassPullRequestAllowances:
+        #   apps:
+        #     - "app_name"
+        #   users:
+        #     - "user_name"
+        #   teams:
+        #     - "team_name"
+        #Protect the default branch after creating the repository. The default value is 'true'
+        protectDefaultBranch: false
 
     - id: register
       name: Registering the Catalog Info Component
