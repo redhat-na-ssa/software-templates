@@ -244,6 +244,16 @@ spec:
         description: gitops resources for ${{ parameters.artifactId }}
         sourcePath: ./tenant-gitops
         repoVisibility: public
+        #Allow specific users, teams, or apps to bypass pull request requirements.
+        # bypassPullRequestAllowances:
+        #   apps:
+        #     - "app_name"
+        #   users:
+        #     - "user_name"
+        #   teams:
+        #     - "team_name"
+        #Protect the default branch after creating the repository. The default value is 'true'
+        protectDefaultBranch: false
 
     - id: create-argocd-resources
       name: Create ArgoCD Resources
